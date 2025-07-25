@@ -1,2 +1,3 @@
 saved_models/CLIP_regression_upgrade/*.pkl filter=lfs diff=lfs merge=lfs -text
 saved_models/Google_classifier_3/*.pkl filter=lfs diff=lfs merge=lfs -text
+saved_models/Google_classification_3/*.pkl filter=lfs diff=lfs merge=lfs -text
