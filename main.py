@@ -19,16 +19,14 @@ classifier = AgeByFaceClassifier(
 # True - если нужно загрузить сохраненные модели
 run_mode_from_saved_state = True
 
-# save_dir = "./saved_models/Google_classification_3"
-save_dir = "./saved_models/CLIP_regression_upgrade"
+save_dir = "./saved_models/Google_classification_3"
+# save_dir = "./saved_models/CLIP_regression_upgrade"
 
 # for dataset in [".parquet", "nu.parquet", "0nu.parquet", "1nu.parquet", "2nu.parquet", "revised.parquet", "3revised.parquet", "4revised.parquet"]:
-# for dataset in [".parquet"]:
-#     _, ages = classifier._load_parquet_data("./train", dataset)
-#     classifier._bin_ages(ages)
-#     show_age_distribution(ages, classifier.age_bins, dataset)
-
-# exit()
+for dataset in [".parquet"]:
+    _, ages = classifier._load_parquet_data("./train", dataset)
+    classifier._bin_ages(ages)
+    show_age_distribution(ages, classifier.age_bins, dataset)
 
 if run_mode_from_saved_state:
     # Или загрузка сохраненных моделей
@@ -46,16 +44,16 @@ else:
     saveTestSamples(X_train, y_train, save_dir, "train_sample.pkl")
 
 # Сравнение моделей на тестовых данных
-# print("На тестовых данных")
-# classifier.compare_models(X_test, y_test)
+print("На тестовых данных")
+classifier.compare_models(X_test, y_test)
 
 # Лучшая модель
-# best_model_name = classifier.get_best_model_name(X_test, y_test)
-# print(f"\033[93mЛучшая модель: {best_model_name}\033[0m")
+best_model_name = classifier.get_best_model_name(X_test, y_test)
+print(f"\033[93mЛучшая модель: {best_model_name}\033[0m")
 
 # Сравнение моделей на тренировочных данных (проверка переобучения)
-# print("На тренировочных данных")
-# classifier.compare_models(X_train, y_train)
+print("На тренировочных данных")
+classifier.compare_models(X_train, y_train)
 
 # Тестирование на конкретном изображении
 test_pictures_dir = "./test/test_faces_10"
@@ -68,28 +66,3 @@ for f in os.listdir(test_pictures_dir):
 # # Сохранение результатов
 with open(os.path.join(test_pictures_dir, "clip_regressor_results.txt"), "w", encoding="utf-8") as file:
     file.write(preds)
-
-
-# Тестирование на конкретном изображении
-# test_pictures_dir = "./test/test_faces_3"
-# preds = ""
-# for f in os.listdir(test_pictures_dir):
-#     if f.endswith(('.jpg', '.png', '.jpeg', '.JPG', '.PNG')):
-#         # Пример предсказание для нового изображения
-#         result_pred = classifier.predict_age(os.path.join(test_pictures_dir, f))
-#         preds += f + " -> " + str(result_pred) + "\n"
-# # Сохранение результатов
-# with open(os.path.join(test_pictures_dir, "google_classifier_max.txt"), "w", encoding="utf-8") as file:
-#     file.write(preds)
-
-    # Тестирование на конкретном изображении
-# test_pictures_dir = "./test/test_faces_6"
-# preds = ""
-# for f in os.listdir(test_pictures_dir):
-#     if f.endswith(('.jpg', '.png', '.jpeg', '.JPG', '.PNG')):
-#         # Пример предсказание для нового изображения
-#         result_pred = classifier.predict_age(os.path.join(test_pictures_dir, f))
-#         preds += f + " -> " + str(result_pred) + "\n"
-# # Сохранение результатов
-# with open(os.path.join(test_pictures_dir, "google_classifier_max.txt"), "w", encoding="utf-8") as file:
-#     file.write(preds)

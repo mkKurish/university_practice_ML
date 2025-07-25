@@ -139,7 +139,7 @@ class AgeByFaceClassifier:
             print(name, " in process...")
             if self.age_bins is not None:
                 if name == "SVM":
-                    self.models[name] = SVC(kernel="rbf", probability=True)
+                    self.models[name] = SVC(kernel="rbf", probability=True, C=1)
                 elif name == "RandomForest":
                     self.models[name] = RandomForestClassifier(n_estimators=100)
                 elif name == "KNN":
@@ -148,7 +148,7 @@ class AgeByFaceClassifier:
                     self.models[name] = XGBClassifier()
             else:
                 if name == "SVM":
-                    self.models[name] = SVR(kernel="rbf")
+                    self.models[name] = SVR(kernel="rbf", C=1)
                 elif name == "RandomForest":
                     self.models[name] = RandomForestRegressor(n_estimators=100, max_depth=10)
                 elif name == "KNN":
